@@ -7,7 +7,7 @@ use core::cmp;
 use bitcoin::consensus::Encodable;
 use bitcoin::hashes::{hash160, ripemd160, sha1, sha256, sha256d, Hash};
 use bitcoin::opcodes::{all::*, Opcode};
-use bitcoin::script::{self, Instruction, Instructions, Script, ScriptBuf};
+use bitcoin::script::{self, Instruction, Instructions, Script, ScriptBuf, ScriptExt};
 use bitcoin::sighash::SighashCache;
 use bitcoin::taproot::{self, TapLeafHash};
 use bitcoin::transaction::{self, Transaction, TxOut};
@@ -77,8 +77,8 @@ pub struct Options {
     pub verify_csv: bool,
     /// Verify conditionals are minimally encoded.
     pub verify_minimal_if: bool,
-	/// Enfore a strict limit of 1000 total stack items.
-	pub enforce_stack_limit: bool,
+    /// Enfore a strict limit of 1000 total stack items.
+    pub enforce_stack_limit: bool,
 
     pub experimental: Experimental,
 }
@@ -90,7 +90,7 @@ impl Default for Options {
             verify_cltv: true,
             verify_csv: true,
             verify_minimal_if: true,
-			enforce_stack_limit: true,
+            enforce_stack_limit: true,
             experimental: Experimental { op_cat: true },
         }
     }
@@ -1030,8 +1030,12 @@ impl Exec {
 
 fn read_scriptint(item: &[u8], size: usize, minimal: bool) -> Result<i64, ExecError> {
     script::read_scriptint_size(item, size, minimal).map_err(|e| match e {
-        script::ScriptIntError::NonMinimalPush => ExecError::MinimalData,
+        script::Error::NonMinimalPush => ExecError::MinimalData,
         // only possible if size is 4 or lower
-        script::ScriptIntError::NumericOverflow => ExecError::ScriptIntNumericOverflow,
+        script::Error::NumericOverflow => ExecError::ScriptIntNumericOverflow,
+        script::Error::EarlyEndOfScript => todo!(),
+        script::Error::UnknownSpentOutput(out_point) => todo!(),
+        script::Error::Serialization => todo!(),
+        _ => unimplemented!(),
     })
 }

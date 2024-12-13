@@ -1,7 +1,7 @@
 use std::fmt;
 
 use bitcoin::hex::DisplayHex;
-use bitcoin::{Opcode, Script};
+use bitcoin::{script::ScriptExt, Opcode, Script};
 use serde::ser::{Serialize, SerializeMap, SerializeSeq, Serializer};
 
 use crate::ExecStats;

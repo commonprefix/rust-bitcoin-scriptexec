@@ -4,6 +4,7 @@ use std::path::PathBuf;
 
 use bitcoin::hashes::Hash;
 use bitcoin::hex::DisplayHex;
+use bitcoin::script::{ScriptBufExt, ScriptExt};
 use bitcoin::taproot::TapLeafHash;
 use bitcoin::{ScriptBuf, Transaction};
 use clap::Parser;
@@ -60,7 +61,7 @@ fn inner_main() -> Result<(), String> {
             },
             prevouts: vec![],
             input_idx: 0,
-            taproot_annex_scriptleaf: Some((TapLeafHash::all_zeros(), None)),
+            taproot_annex_scriptleaf: Some((TapLeafHash::from_byte_array([0; 32]), None)),
         },
         script,
         vec![],

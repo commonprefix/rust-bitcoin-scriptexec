@@ -1,7 +1,7 @@
 use bitcoin::hashes::Hash;
 use bitcoin::hex::{DisplayHex, FromHex};
 use bitcoin::taproot::TapLeafHash;
-use bitcoin::{ScriptBuf, Transaction};
+use bitcoin::{script::ScriptBufExt, script::ScriptExt, ScriptBuf, Transaction};
 use serde_json::json;
 use wasm_bindgen::prelude::*;
 
@@ -65,7 +65,7 @@ pub fn run_script(script_hex: &str, script_witness: Box<[JsValue]>) -> Result<Js
             },
             prevouts: vec![],
             input_idx: 0,
-            taproot_annex_scriptleaf: Some((TapLeafHash::all_zeros(), None)),
+            taproot_annex_scriptleaf: Some((TapLeafHash::from_byte_array([0; 32]), None)),
         },
         script,
         witness,
