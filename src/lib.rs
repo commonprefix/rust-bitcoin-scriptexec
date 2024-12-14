@@ -5,7 +5,7 @@ use alloc::borrow::Cow;
 use core::cmp;
 
 use bitcoin::consensus::Encodable;
-use bitcoin::hashes::{hash160, ripemd160, sha1, sha256, sha256d, Hash};
+use bitcoin::hashes::{hash160, ripemd160, sha1, sha256, sha256d};
 use bitcoin::opcodes::{all::*, Opcode};
 use bitcoin::script::{self, Instruction, Instructions, Script, ScriptBuf, ScriptExt};
 use bitcoin::sighash::SighashCache;
