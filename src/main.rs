@@ -2,7 +2,6 @@ use std::fmt;
 use std::io::{self, Write};
 use std::path::PathBuf;
 
-use bitcoin::hashes::Hash;
 use bitcoin::hex::DisplayHex;
 use bitcoin::script::{ScriptBufExt, ScriptExt};
 use bitcoin::taproot::TapLeafHash;

@@ -219,7 +219,7 @@ impl Stack {
     pub fn serialize_to_bytes(self) -> Vec<u8> {
         let mut bytes = vec![];
         for entry in self.0 {
-            bytes.extend(entry.serialize_to_bytes());
+            bytes.extend(entry.as_bytes());
         }
         bytes
     }

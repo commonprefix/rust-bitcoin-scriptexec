@@ -1,4 +1,3 @@
-use bitcoin::hashes::Hash;
 use bitcoin::hex::{DisplayHex, FromHex};
 use bitcoin::taproot::TapLeafHash;
 use bitcoin::{script::ScriptBufExt, script::ScriptExt, ScriptBuf, Transaction};
