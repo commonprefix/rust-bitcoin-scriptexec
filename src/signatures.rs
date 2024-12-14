@@ -92,7 +92,7 @@ impl Exec {
             )
             .expect("TODO(stevenroose) seems to only happen if prevout index out of bound");
 
-        if SECP.verify_schnorr(&sig, &sighash.into(), &pk) != Ok(()) {
+        if SECP.verify_schnorr(&sig, sighash.as_byte_array(), &pk) != Ok(()) {
             return Err(ExecError::SchnorrSig);
         }
 
